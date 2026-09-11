@@ -1,0 +1,13 @@
+{
+  "artist": "Twyla Tate",
+  "latestUrl": "latest.json",
+  "featuredTrack": {
+    "title": "",
+    "artist": "Twyla Tate",
+    "album": "",
+    "cover": "",
+    "audioSrc": "",
+    "videos": []
+  },
+  "tracks": []
+}

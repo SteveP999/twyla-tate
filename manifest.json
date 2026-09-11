@@ -1,0 +1,10 @@
+{
+  "name": "Twyla Tate",
+  "short_name": "Twyla Tate",
+  "description": "Twyla Tate on Hello Texas Records",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#090806",
+  "theme_color": "#d49a25",
+  "icons": []
+}
