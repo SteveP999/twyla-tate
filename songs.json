@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "twyla-tate-almost-loved-you",
+    "num": "01",
+    "title": "Almost Loved You",
+    "artist": "Twyla Tate",
+    "album": "After Hours - The HTR Songbook, Vol. 1",
+    "trackNumber": 99,
+    "albumOrder": 99,
+    "albumCover": "",
+    "type": "single",
+    "isLatest": true,
+    "cover": "",
+    "audio": "https://www.dropbox.com/scl/fi/fq7ubkpyeh395tiddadhx/Almost-Loved-You-1950s-Doo-Wop-R-B-H06-A.wav?rlkey=sltw89yyed62wx6lvdveosisc&raw=1",
+    "audioSrc": "https://www.dropbox.com/scl/fi/fq7ubkpyeh395tiddadhx/Almost-Loved-You-1950s-Doo-Wop-R-B-H06-A.wav?rlkey=sltw89yyed62wx6lvdveosisc&raw=1",
+    "videos": [],
+    "includeOnRadio": false,
+    "includeOnHomepage": true,
+    "explicit": false,
+    "tags": [],
+    "streaming": {}
+  }
+]
