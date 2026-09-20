@@ -95,14 +95,18 @@
     "type": "single",
     "isLatest": false,
     "cover": "",
-    "audio": "https://www.dropbox.com/scl/fi/fq7ubkpyeh395tiddadhx/Almost-Loved-You-1950s-Doo-Wop-R-B-H06-A.wav?rlkey=sltw89yyed62wx6lvdveosisc&raw=1",
-    "audioSrc": "https://www.dropbox.com/scl/fi/fq7ubkpyeh395tiddadhx/Almost-Loved-You-1950s-Doo-Wop-R-B-H06-A.wav?rlkey=sltw89yyed62wx6lvdveosisc&raw=1",
+    "audio": "https://www.dropbox.com/scl/fi/larfds9021lnw3fu0dfof/Twyla-Tate-Almost-Loved-You-1950s-Doo-Wop-H06A-Avery-Ivey-MP3-mastered.mp3?rlkey=lf3kzcemnt8lkeow9en3cccpi&raw=1",
+    "audioSrc": "https://www.dropbox.com/scl/fi/larfds9021lnw3fu0dfof/Twyla-Tate-Almost-Loved-You-1950s-Doo-Wop-H06A-Avery-Ivey-MP3-mastered.mp3?rlkey=lf3kzcemnt8lkeow9en3cccpi&raw=1",
     "videos": [],
     "includeOnRadio": false,
     "includeOnHomepage": false,
     "explicit": false,
     "tags": [],
-    "streaming": {}
+    "streaming": {
+      "spotify": "",
+      "apple": "",
+      "youtubeMusic": ""
+    }
   },
   {
     "id": "twyla-tate-butterflies",
