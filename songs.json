@@ -105,27 +105,6 @@
     "streaming": {}
   },
   {
-    "id": "twyla-tate-burning-bridges-b-e-version",
-    "num": "06",
-    "title": "Burning Bridges (B.E. Version)",
-    "artist": "Twyla Tate",
-    "album": "After Hours - The HTR Songbook, Vol. 1",
-    "trackNumber": 6,
-    "albumOrder": 6,
-    "albumCover": "images/covers/twyla-tate-after-hours-the-htr-songbook-vol-1-ALBUM-cover.png",
-    "type": "single",
-    "isLatest": false,
-    "cover": "",
-    "audio": "https://www.dropbox.com/scl/fi/jbrs72hbp66jrnsgqe2bs/Burning-Bridges-P43-A.wav?rlkey=ah28vzfkj3amcyc8npk7ph2ok&raw=1",
-    "audioSrc": "https://www.dropbox.com/scl/fi/jbrs72hbp66jrnsgqe2bs/Burning-Bridges-P43-A.wav?rlkey=ah28vzfkj3amcyc8npk7ph2ok&raw=1",
-    "videos": [],
-    "includeOnRadio": false,
-    "includeOnHomepage": false,
-    "explicit": false,
-    "tags": [],
-    "streaming": {}
-  },
-  {
     "id": "twyla-tate-butterflies",
     "num": "06",
     "title": "Butterflies",
