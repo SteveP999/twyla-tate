@@ -441,6 +441,7 @@ a{color:inherit}
 .p-btn-row{display:flex;align-items:center;gap:1.2rem}
 .p-btn{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:.9rem;padding:.25rem;transition:color .2s}
 .p-btn:hover{color:var(--accent-lt)}
+.p-btn.active{color:var(--accent)}
 #p-playbtn{width:36px;height:36px;border:1px solid var(--line);background:transparent;color:var(--accent);cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center}
 .progress-wrap{height:4px;background:color-mix(in srgb,var(--accent) 14%, transparent);width:100%;max-width:520px;cursor:pointer}
 .progress-fill{height:100%;width:0;background:linear-gradient(to right,var(--accent),var(--accent-lt))}
@@ -1190,6 +1191,7 @@ footer{background:linear-gradient(to bottom,rgba(0,0,0,.28),rgba(0,0,0,.52)),var
       <button class="p-btn" onclick="prevTrack()">&#9664;&#9664;</button>
       <button id="p-playbtn" onclick="togglePlay()">&#9654;</button>
       <button class="p-btn" onclick="nextTrack()">&#9654;&#9654;</button>
+      <button id="shuffle-btn" class="p-btn" onclick="toggleShuffle()" title="Shuffle all songs">&#128256;</button>
     </div>
     <div class="progress-wrap" onclick="seek(event)"><div id="progress-fill" class="progress-fill"></div></div>
     <div style="display:flex;justify-content:space-between;width:100%;max-width:520px">
@@ -1207,6 +1209,52 @@ const DATA = JSON.parse(document.getElementById('artist-data').textContent);
 const SONGS = DATA.songs || [];
 let currentIndex = -1;
 const audio = document.getElementById('audio');
+
+// Shuffle All: one randomized pass through every song, no repeats, kept for
+// this browser tab's session (sessionStorage) so it survives navigating the
+// page but resets on a fresh visit. Turning it off returns to the order
+// shown on screen (album order, then track order within each album).
+let shuffleMode = false;
+let shuffleQueue = [];
+let shufflePos = -1;
+function shuffleKey() { return 'htr_shuffle_' + ((DATA.artist && DATA.artist.id) || 'artist'); }
+function buildShuffleQueue() {
+  const idxs = SONGS.map((_, i) => i);
+  for (let i = idxs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = idxs[i]; idxs[i] = idxs[j]; idxs[j] = tmp;
+  }
+  return idxs;
+}
+function saveShuffleState() {
+  try { sessionStorage.setItem(shuffleKey(), JSON.stringify({queue: shuffleQueue, pos: shufflePos})); } catch(e) {}
+}
+function restoreShuffleState() {
+  try {
+    const raw = sessionStorage.getItem(shuffleKey());
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    if (!Array.isArray(saved.queue) || saved.queue.length !== SONGS.length) return;
+    shuffleQueue = saved.queue;
+    shufflePos = typeof saved.pos === 'number' ? saved.pos : -1;
+    shuffleMode = true;
+    const btn = document.getElementById('shuffle-btn');
+    if (btn) btn.classList.add('active');
+  } catch(e) {}
+}
+window.toggleShuffle = function() {
+  shuffleMode = !shuffleMode;
+  const btn = document.getElementById('shuffle-btn');
+  if (shuffleMode) {
+    shuffleQueue = buildShuffleQueue();
+    shufflePos = -1;
+    saveShuffleState();
+    if (btn) btn.classList.add('active');
+  } else {
+    try { sessionStorage.removeItem(shuffleKey()); } catch(e) {}
+    if (btn) btn.classList.remove('active');
+  }
+};
 
 function esc(value) {
   return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
@@ -1490,8 +1538,25 @@ function togglePlay() {
     document.querySelectorAll('.np-play-pause').forEach(b=>b.innerHTML='&#9654;');
   }
 }
-function nextTrack() { if (SONGS.length) playIndex((currentIndex + 1) % SONGS.length); }
-function prevTrack() { if (SONGS.length) playIndex((currentIndex - 1 + SONGS.length) % SONGS.length); }
+function nextTrack() {
+  if (!SONGS.length) return;
+  if (shuffleMode) {
+    shufflePos++;
+    if (shufflePos >= shuffleQueue.length) { shuffleQueue = buildShuffleQueue(); shufflePos = 0; }
+    saveShuffleState();
+    playIndex(shuffleQueue[shufflePos]);
+  } else {
+    playIndex((currentIndex + 1) % SONGS.length);
+  }
+}
+function prevTrack() {
+  if (!SONGS.length) return;
+  if (shuffleMode) {
+    if (shufflePos > 0) { shufflePos--; saveShuffleState(); playIndex(shuffleQueue[shufflePos]); }
+  } else {
+    playIndex((currentIndex - 1 + SONGS.length) % SONGS.length);
+  }
+}
 function seek(e) {
   if (!audio.duration) return;
   const rect = e.currentTarget.getBoundingClientRect();
@@ -1515,6 +1580,7 @@ function checkPhotoStrip() {
 renderLatest();
 renderVideo();
 renderAlbums();
+restoreShuffleState();
 </script>
 </body>
 </html>
